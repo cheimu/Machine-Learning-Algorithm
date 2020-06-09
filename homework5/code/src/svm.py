@@ -97,7 +97,7 @@ class LinearSVM():
         hinge_loss = np.maximum(np.zeros(m), 1 - y * np.dot(X, w))
         return self.lambda_ / 2 * np.dot(w,w) + 1./m * np.sum(hinge_loss)
     
-    def fit(self,X,y,verbose = True):
+    def fit(self,X,y,verbose = False):
         """
         Finds the coefficients of a linear model that fits the target.
  
@@ -215,7 +215,7 @@ class RBFSVM():
         K_ = np.multiply(K_, K)
         return np.sum(alpha) - 0.5 * np.sum(K_)
     
-    def fit(self,X,y,verbose = False):
+    def fit(self,X,y,verbose = True):
         """
         Finds the coefficients of a RBF model that fits the target.
  
@@ -318,7 +318,7 @@ print('Testing error of scikit-learn Linear SVM: %.3f' % (1-accuracy_score(y_tes
 # plt.show()
 
 # fit LinearSVM
-clf = LinearSVM(lambda_ = 0.025, T = 5000)
+clf = LinearSVM(lambda_ = 0.4, T = 5000)
 clf.fit(X_train, y_train)
 y_pred = clf.predict(X_train)
 print('Training error of LinearSVM: %.3f' % (1-accuracy_score(y_train, y_pred)))
@@ -338,8 +338,8 @@ print('Training error of scikit-learn RBF SVM: %.3f' % (1-accuracy_score(y_train
 y_pred = clf.predict(X_test)
 print('Testing error of scikit-learn RBF SVM: %.3f' % (1-accuracy_score(y_test, y_pred)))
 # Uncomment to visualize decision boundary (not required for the homework, for debugging purpose)
-# plot_decision_boundary(clf, 3, X, y, X_test, y_test, 'Decision Boundary of Scikit-learn RBF SVM')
-# plt.show()
+#plot_decision_boundary(clf, 3, X, y, X_test, y_test, 'Decision Boundary of Scikit-learn RBF SVM')
+#plt.show()
 
 # fit RBFSVM
 clf = RBFSVM()
@@ -349,5 +349,5 @@ print('Training error of RBFSVM: %.3f' % (1-accuracy_score(y_train, y_pred)))
 y_pred = clf.predict(X_test)
 print('Testing error of RBFSVM: %.3f' % (1-accuracy_score(y_test, y_pred)))
 # Uncomment to visualize decision boundary (not required for the homework, for debugging purpose)
-# plot_decision_boundary(clf, 4,X, y, X_test, y_test, 'Decision Boundary of RBFSVM')
-# plt.show()
+plot_decision_boundary(clf, 4,X, y, X_test, y_test, 'Decision Boundary of RBFSVM')
+plt.show()
